@@ -1,11 +1,14 @@
 #!/bin/bash
 PSQL="psql --username=freecodecamp --dbname=number_guess -t --no-align -c"
 
+# Getting random number
 NUMBER=$(( RANDOM%1000 + 1 ))
 
+# Getting username of user
 echo "Enter your username:"
 read USERNAME
 
+# Function to implement guessing game
 USER_GUESS() {
   NUMBER_OF_GUESSES=1
   echo -e "\nGuess the secret number between 1 and 1000:" 
@@ -31,6 +34,7 @@ USER_GUESS() {
   echo -e "\nYou guessed it in $NUMBER_OF_GUESSES tries. The secret number was $NUMBER. Nice job!" 
 }
 
+# Function to check if this current game is the users best game overall
 USER_BEST_GAME() {
   if [[ -z  $BEST_GAME ]]
   then 
@@ -41,6 +45,7 @@ USER_BEST_GAME() {
   fi
 }
 
+# Function to insert or update a users info in the database depending on in they are new or returning user
 INSERT_USER_INFO() {
   if [[ $GAMES_PLAYED == 1 ]]
   then
@@ -51,6 +56,7 @@ INSERT_USER_INFO() {
   fi
 }
 
+# Implementation of all the functions depending if its new or returning user
 if [[ -z $($PSQL "SELECT * FROM user_info WHERE username='$USERNAME'") ]]
 then
   echo -e "\nWelcome, $USERNAME! It looks like this is your first time here."
