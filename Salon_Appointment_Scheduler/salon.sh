@@ -18,7 +18,6 @@ MAIN_MENU() {
     1) details ;;
     2) details ;;
     3) details ;;
-    # 4) EXIT ;;
     *) MAIN_MENU "Please enter a valid option." ;;
   esac
 }
